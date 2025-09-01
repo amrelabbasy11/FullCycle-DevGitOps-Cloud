@@ -1,0 +1,8 @@
+name: VprofileApp-IAC
+on:
+  push:
+    branches:
+     - main
+    paths:
+     - terraform/**
+     
