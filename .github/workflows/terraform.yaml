@@ -15,8 +15,8 @@ on:
 env: 
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  ## BUCKET_TF_STATE: ${{ secrets.BUCKET_TF_STATE }}
-  ## AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+  BUCKET_TF_STATE: ${{ secrets.BUCKET_TF_STATE }}
+  AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
   EKS_CLUSTER: eks-cluster
 
 jobs:
