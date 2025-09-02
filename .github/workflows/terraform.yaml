@@ -2,43 +2,40 @@ name: VprofileApp-IAC
 on:
   push:
     branches:
-     - main
-     - iac-stage
+      - main
+      - iac-stage
     paths:
-     - terraform/**
+      - terraform/**
   pull_request:
     branches:
-     - main
+      - main
     paths:
       - terraform/**
 
 env: 
-   # Those credentails is essential for access AWS
-   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-   #S3 Bucket for Terraform State (ST)
-   BUCKET_TF_STATE: ${{ secrets.BUCKET_TF_STATE }}
-   AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
-   EKS_CLUSTER: eks-cluster
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  BUCKET_TF_STATE: ${{ secrets.BUCKET_TF_STATE }}
+  AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+  EKS_CLUSTER: eks-cluster
 
 jobs:
   terraform:
     name: "Apply terraform changes"
     runs-on: ubuntu-latest
-    defaults:
+    defaults:   
       run: 
         shell: bash
         working-directory: ./terraform
 
     steps:
-      - name: checkout source code
+      - name: Checkout source code
         uses: actions/checkout@v5.0.0
 
-      - name:  HashiCorp - Setup Terraform
+      - name: HashiCorp - Setup Terraform
         uses: hashicorp/setup-terraform@v2.0.3
-        #with:
 
-      - name: Terrafrom Init
+      - name: Terraform Init
         id: init
         run: terraform init -backend-config="bucket=$BUCKET_TF_STATE"
           
@@ -53,10 +50,8 @@ jobs:
       - name: Terraform Plan
         id: plan
         run: terraform plan -no-color -input=false -out planefile
-        continue-on-error: true
+        continue-on-error: true   
 
       - name: Terraform Plan Status
-        if: steps.plan.outcome == 'failure'   #outcome is a variable that will actually has the failure or success
+        if: steps.plan.outcome == 'failure'
         run: exit 1
-
-  
