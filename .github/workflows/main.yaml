@@ -72,7 +72,7 @@ jobs:
           access_key: ${{ secrets.aws_access_key_id }}
           secret_key: ${{ secrets.aws_secret_access_key }}
           registry: ${{ secrets.ECR_REGISTRY }}
-          repo: cloudnativegitopsprofileservice-ecr
+          repo: ${{ secrets.ECR_REGISTRY }}/cloudnativegitopsprofileservice-ecr
           region: ${{ env.AWS_REGION }}
           tags: latest
           dockerfile: ./Docker-app/Dockerfile
@@ -85,7 +85,7 @@ jobs:
           access_key: ${{ secrets.aws_access_key_id }}
           secret_key: ${{ secrets.aws_secret_access_key }}
           registry: ${{ secrets.ECR_REGISTRY }}
-          repo: cloudnativegitopsprofileservice-ecr
+          repo: ${{ secrets.ECR_REGISTRY }}/cloudnativegitopsprofileservice-ecr 
           region: ${{ env.AWS_REGION }}
           tags: latest
           dockerfile: ./Docker-db/Dockerfile
@@ -98,7 +98,7 @@ jobs:
           access_key: ${{ secrets.aws_access_key_id }}
           secret_key: ${{ secrets.aws_secret_access_key }}
           registry: ${{ secrets.ECR_REGISTRY }}
-          repo: cloudnativegitopsprofileservice-ecr
+          repo: ${{ secrets.ECR_REGISTRY }}/cloudnativegitopsprofileservice-ecr  
           region: ${{ env.AWS_REGION }}
           tags: latest
           dockerfile: ./Docker-web/Dockerfile
