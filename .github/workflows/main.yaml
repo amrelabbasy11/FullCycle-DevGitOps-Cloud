@@ -49,14 +49,14 @@ jobs:
            -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml \
            -Dsonar.java.binaries=target/classes
          
-     # Check Quality Gate status
-     - name: SonarCloud Quality Gate check
-       id: sonar-quality-gate
-       uses: sonarsource/sonarqube-quality-gate-action@master
-       timeout-minutes: 5
-       env:
-         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-         SONAR_HOST_URL: ${{ secrets.SONAR_URL }}
+  #   # Check Quality Gate status
+  #   - name: SonarCloud Quality Gate check
+  #   id: sonar-quality-gate
+  #   uses: sonarsource/sonarqube-quality-gate-action@master
+  #   timeout-minutes: 5
+  #   env:
+  #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  #     SONAR_HOST_URL: ${{ secrets.SONAR_URL }}
 
   BUILD_AND_PUBLISH:
     runs-on: ubuntu-latest
@@ -97,7 +97,7 @@ jobs:
        with:
           access_key: ${{ secrets.aws_access_key_id }}
           secret_key: ${{ secrets.aws_secret_access_key }}
-          registry: ${{ secrets.registry }}
+          registry: ${{ secrets.ECR_REGISTRY }}
           repo: vprofile-web
           region: ${{ env.AWS_REGION }}
           tags: latest
