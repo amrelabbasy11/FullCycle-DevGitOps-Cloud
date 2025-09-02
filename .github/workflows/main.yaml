@@ -89,7 +89,7 @@ jobs:
           region: ${{ env.AWS_REGION }}
           tags: latest
           dockerfile: ./Docker-db/Dockerfile
-          context: .
+          context: ./Docker-db  
 
      # Build and Push WEB Image
      - name: Build and Push WEB Image
@@ -102,4 +102,4 @@ jobs:
           region: ${{ env.AWS_REGION }}
           tags: latest
           dockerfile: ./Docker-web/Dockerfile
-          context: .
+          context: ./Docker-web
