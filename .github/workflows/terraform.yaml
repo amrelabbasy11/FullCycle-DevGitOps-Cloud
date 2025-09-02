@@ -25,7 +25,7 @@ jobs:
   terraform:
     name: "Apply terraform changes"
     runs-on: ubuntu-latest
-    default:
+    defaults:
       run: 
         shell: bash
         working-directory: ./terraform
@@ -52,8 +52,8 @@ jobs:
 
       - name: Terraform Plan
         id: plan
-        run : terraform plan -no-color -input=false -out planefile
-        continue on error: true
+        run: terraform plan -no-color -input=false -out planefile
+        continue-on-error: true
 
       - name: Terraform Plan Status
         if: steps.plan.outcome == 'failure'   #outcome is a variable that will actually has the failure or success
