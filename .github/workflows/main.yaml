@@ -23,7 +23,7 @@ jobs:
        run: mvn test
 
      - name: Checkstyle Test
-       run: mvn Checkstyle:Checkstyle
+       run: mvn checkstyle:check
 
      
       # Setup Java (SonarCloud requires Java 11+ for scanner)
