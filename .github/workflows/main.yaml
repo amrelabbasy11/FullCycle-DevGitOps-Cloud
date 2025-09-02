@@ -1,12 +1,11 @@
 name: App Actions CI
-
 on:
   push:
     branches:
-      - main
+     - main 
   pull_request:
     branches:
-      - main
+     - main
 
 env:
   AWS_REGION: us-east-2
@@ -17,27 +16,46 @@ jobs:
   Testing:
     runs-on: ubuntu-latest
     steps:
-      - name: Code checkout
-        uses: actions/checkout@v5.0.0
+     - name: code checkout
+       uses: actions/checkout@v5.0.0
+      
+     - name: Maven Test
+       run: mvn test
 
-      - name: Set up JDK 11
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: '11'
+     - name: Checkstyle Test
+       run: mvn Checkstyle:Checkstyle
 
-      - name: Maven Test
-        run: mvn test
+     
+      # Setup Java (SonarCloud requires Java 11+ for scanner)
+     - name: Set up JDK 11
+       uses: actions/setup-java@v3
+       with:
+         distribution: 'temurin'
+         java-version: '11'
+      # Setup sonar-scanner
+     - name: Setup Sonar Scanner
+       uses: warchant/setup-sonar-scanner@v7
 
-      - name: Checkstyle Test
-        run: mvn checkstyle:check
-
-      # SonarCloud Scan
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@v2
-        with:
-          projectBaseDir: .
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
-          SONAR_ORGANIZATION: ${{ secrets.SONAR_ORGANIZATION }}
+      # Run sonar-scanner
+     - name: SonarCloud Scan
+       run: |
+         sonar-scanner \
+           -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
+           -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }} \
+           -Dsonar.host.url=${{ secrets.SONAR_URL }} \
+           -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+           -Dsonar.sources=src \
+           -Dsonar.junit.reportPaths=target/surefire-reports \
+           -Dsonar.jacoco.reportPaths=target/jacoco.exec \
+           -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml \
+           -Dsonar.java.binaries=target/classes
+         
+      # Check Quality Gate status
+     - name: SonarCloud Quality Gate check
+       id: sonar-quality-gate
+       uses: sonarsource/sonarqube-quality-gate-action@master
+       timeout-minutes: 5
+       env:
+         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+         SONAR_HOST_URL: ${{ secrets.SONAR_URL }}
+      
