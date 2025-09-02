@@ -32,10 +32,10 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v5.0.0
 
-      - name: HashiCorp - Setup Terraform
+        - name: HashiCorp - Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
-        terraform_version: 1.6.3
+          terraform_version: 1.6.3
 
 
       - name: Terraform Init
