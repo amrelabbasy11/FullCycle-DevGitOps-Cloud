@@ -14,7 +14,7 @@ env:
 
 jobs:
   Testing:
-    runs-on: ubutu-latest
+    runs-on: ubuntu-latest
     steps:
      - name: code checkout
        uses: actions/checkout@v5.0.0
