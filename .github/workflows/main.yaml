@@ -71,8 +71,8 @@ jobs:
        with:
           access_key: ${{ secrets.aws_access_key_id }}
           secret_key: ${{ secrets.aws_secret_access_key }}
-          registry: ${{ secrets.registry }}
-          repo: vprofile-app
+          registry: ${{ secrets.ECR_REGISTRY }}
+          repo: cloudnativegitopsprofileservice-ecr
           region: ${{ env.AWS_REGION }}
           tags: latest
           dockerfile: ./Docker-app/Dockerfile
@@ -84,8 +84,8 @@ jobs:
        with:
           access_key: ${{ secrets.aws_access_key_id }}
           secret_key: ${{ secrets.aws_secret_access_key }}
-          registry: ${{ secrets.registry }}
-          repo: vprofile-db
+          registry: ${{ secrets.ECR_REGISTRY }}
+          repo: cloudnativegitopsprofileservice-ecr
           region: ${{ env.AWS_REGION }}
           tags: latest
           dockerfile: ./Docker-db/Dockerfile
@@ -98,7 +98,7 @@ jobs:
           access_key: ${{ secrets.aws_access_key_id }}
           secret_key: ${{ secrets.aws_secret_access_key }}
           registry: ${{ secrets.ECR_REGISTRY }}
-          repo: vprofile-web
+          repo: cloudnativegitopsprofileservice-ecr
           region: ${{ env.AWS_REGION }}
           tags: latest
           dockerfile: ./Docker-web/Dockerfile
