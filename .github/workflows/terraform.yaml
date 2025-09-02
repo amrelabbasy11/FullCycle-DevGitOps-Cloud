@@ -58,3 +58,4 @@ jobs:
       - name: Terraform Plan Status
         if: steps.plan.outcome == 'failure'   #outcome is a variable that will actually has the failure or success
         run: exit 1
+##
