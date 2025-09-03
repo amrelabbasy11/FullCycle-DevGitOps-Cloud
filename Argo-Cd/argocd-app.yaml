@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vprofile-app
+  namespace: argocd   
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/amrelabbasy11/CloudNativeGitOpsProfileService.git'
+    targetRevision: main
+    path: helm/charts/vprofilecharts  
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: vproapp
+  syncPolicy:
+    automated:
+      prune: true       
+      selfHeal: true    
+    syncOptions:
+    - CreateNamespace=true
