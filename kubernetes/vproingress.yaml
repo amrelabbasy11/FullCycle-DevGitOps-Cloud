@@ -7,13 +7,13 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: vprofile.hkhinfoteck.xyz
+  - host: vprofile.thehkh.com
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: vproapp-service
+            name: my-app
             port:
               number: 8080
